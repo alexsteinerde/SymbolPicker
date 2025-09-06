@@ -8,7 +8,7 @@
 import Foundation
 
 /// `Symbol` is a class that represents an SF Symbol with its categories.
-public class Symbol: Identifiable {
+public class Symbol: Identifiable, RawRepresentable {
     /// The system name of the symbol.
     let name: String
     /// The categories of the symbol.
@@ -22,5 +22,13 @@ public class Symbol: Identifiable {
         
         self.name = String(components[0])
         self.categories = Set(components.dropFirst().map { SymbolCategory(rawValue: String($0))! })
+    }
+
+    public var rawValue: String {
+        name
+    }
+
+    public required convenience init?(rawValue: String) {
+        self.init(rawValue)
     }
 }
